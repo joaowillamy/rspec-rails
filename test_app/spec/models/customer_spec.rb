@@ -16,10 +16,13 @@ RSpec.describe Customer, type: :model do
   end
 
   it 'Herança' do
+    customer = create(:customer_default)
+    expect(customer.vip).to be_falsey
+    
     customer = create(:customer_vip)
-    expect(customer.vip).to eq(true)
+    expect(customer.vip).to be_truthy
   end
 
-  it { expect { create(:customer) }.to change {Customer.all.size}.by(1) }
+  it { expect { create(:customer) }.to change { Customer.all.size }.by(1) }
 
 end
