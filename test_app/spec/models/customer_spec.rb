@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
 
-  it '#full_name - Sobrescrevendo Atributo' do
+  it '#full_name - overwrite' do
     customer = create(:user, name: "João Willamy" )
     customer1 = create(:customer, name: "João Willamy" )
     expect(customer.full_name).to eq("Sr. João Willamy")
@@ -15,7 +15,7 @@ RSpec.describe Customer, type: :model do
     expect(customer.full_name).to start_with("Sr. ")
   end
 
-  it 'Herança' do
+  it 'Heritage' do
     customer = create(:customer_default)
     expect(customer.vip).to be_falsey
     
@@ -23,7 +23,10 @@ RSpec.describe Customer, type: :model do
     expect(customer.vip).to be_truthy
   end
 
-  it { expect { create(:customer) }.to change { Customer.all.size }.by(1) }
+  it 'Transitional Attribute' do
+    customer = create(:customer_default, upcased: true)
+    expect(customer.name.upcase).to eq(customer.name)
+  end
 
   it 'travel_to' do
     travel_to Time.zone.local(2004, 11, 23, 01, 04, 44) do
@@ -32,4 +35,6 @@ RSpec.describe Customer, type: :model do
 
     expect(@customer.created_at).to be < Time.now
   end
+
+  it { expect { create(:customer) }.to change { Customer.all.size }.by(1) }
 end
