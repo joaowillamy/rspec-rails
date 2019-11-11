@@ -38,6 +38,10 @@ group :development, :test do
   gem 'webmock'
   gem 'httparty'
   gem 'vcr'
+  gem 'shoulda-matchers'
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
+  gem 'devise'
 
 end
 
